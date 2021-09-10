@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.partyapp.Presentation.Repository.Repository;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -11,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        Repository.init(getApplication());
     }
 }

@@ -1,8 +1,15 @@
 package com.example.partyapp.Presentation.Repository.Model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+
 import com.example.partyapp.Domain.Model.Party;
 import com.example.partyapp.Domain.Model.Person;
 import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,44 +19,63 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PartyDTO {
-    private String name;
-    private String description;
-    private String place;
-    private String creator;
-    private String startTime;
-    private String stopTime;
-    private int peopleCount;
-    private int maxPeopleCount;
-    private List<String> peopleList = new ArrayList<>();
+@Entity(tableName = "party")
+public class PartyDTO extends Party {
+    @PrimaryKey
+    @NotNull
+    @ColumnInfo
+    public int id;
+    @ColumnInfo
+    public String creator;
+    @ColumnInfo
+    public String startTime;
+    @ColumnInfo
+    public String stopTime;
+    @ColumnInfo
+    public String peopleList;
 
-    PartyDTO(Party party) {
-        this.name = party.getName();
-        this.description = party.getDescription();
-        this.place = party.getPlace();
-        this.creator = new Gson().toJson(party.getCreator());
-        this.startTime = party.getStartTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-        this.stopTime = party.getStopTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-        this.maxPeopleCount = party.getMaxPeopleCount();
-
-        party.getPeopleList().forEach((Person person) -> this.peopleList.add(new Gson().toJson(person)));
+    @Override
+    public Person getCreator() {
+        return new Gson().fromJson(this.creator, Person.class);
     }
-
-    Party getParty() {
-        Party out = new Party(this.name,
-                new Gson().fromJson(this.creator, Person.class),
-                this.maxPeopleCount);
-
-        out.setPlace(this.place);
-        out.setDescription(this.description);
-        out.setStartTime(LocalDateTime.parse(this.startTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
-        out.setStopTime(LocalDateTime.parse(this.stopTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
-
-        out.setPeopleList(this.peopleList.stream()
-                .map((String person) -> new Gson().fromJson(person, Person.class))
-                .collect(Collectors.toList())
-        );
-
-        return out;
+    @Override
+    public void setCreator(Person creator) {
+        super.setCreator(creator);
+        this.creator = new Gson().toJson(creator);
+    }
+    @Override
+    public LocalDateTime getStartTime() {
+        if (this.startTime != null) {
+            return LocalDateTime.parse(this.startTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        } else {
+            return null;
+        }
+    }
+    @Override
+    public void setStartTime(LocalDateTime startTime) {
+        super.setStartTime(startTime);
+        this.startTime = startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+    }
+    @Override
+    public LocalDateTime getStopTime() {
+        if (this.stopTime != null) {
+            return LocalDateTime.parse(this.stopTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        } else {
+            return null;
+        }
+    }
+    @Override
+    public void setStopTime(LocalDateTime stopTime) {
+        super.setStopTime(stopTime);
+        this.stopTime = stopTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+    }
+    @Override
+    public List<Person> getPeopleList() {
+        return new Gson().fromJson(this.peopleList, List.class);
+    }
+    @Override
+    public void setPeopleList(List<Person> peopleList) {
+        super.setPeopleList(peopleList);
+        this.peopleList = new Gson().toJson(peopleList);
     }
 }

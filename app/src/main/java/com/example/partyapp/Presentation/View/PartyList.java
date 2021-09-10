@@ -59,7 +59,7 @@ public class PartyList extends Fragment {
             @Override
             public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-                mViewModel.deleteParty(position);
+                mViewModel.deleteParty(((PartyListAdapter) mBinding.partyListRecycler.getAdapter()).getData().get(position));
             }
         }).attachToRecyclerView(mBinding.partyListRecycler);
         return mBinding.getRoot();

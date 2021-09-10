@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.partyapp.Domain.Model.Party;
 import com.example.partyapp.Domain.Model.Person;
+import com.example.partyapp.Presentation.Repository.Model.PartyDTO;
 import com.example.partyapp.Presentation.Repository.RepositoryTasks;
 
 import java.text.ParseException;
@@ -67,14 +68,15 @@ public class MockBase implements RepositoryTasks {
         data = new MutableLiveData<>(list);
     }
 
-    public void addParty(Party party) {
+    public <T extends Party> void addParty(T party) {
         list.add(party);
 
         data.setValue(list);
     }
 
-    public void deleteParty(int position) {
-        list.remove(position);
+    @Override
+    public <T extends Party> void deleteParty(T party) {
+        list.remove(party);
 
         data.setValue(list);
     }

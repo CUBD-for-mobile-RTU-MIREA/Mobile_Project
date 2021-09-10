@@ -6,14 +6,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Party {
-    private String name;
-    private String description;
-    private String place;
+    public String name;
+    public String description;
+    public String place;
     private Person creator;
     private LocalDateTime startTime;
     private LocalDateTime stopTime;
-    private int maxPeopleCount;
+    public int maxPeopleCount;
     private List<Person> peopleList;
+
+    public Party() {}
 
     public Party(String name, Person creator, int maxPeopleCount) {
         this.name = name;

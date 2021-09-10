@@ -21,6 +21,7 @@ public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.Part
     private List<Party> data;
 
     public PartyListAdapter(List<Party> data) {
+
         this.data = data;
     }
 
@@ -35,10 +36,14 @@ public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.Part
     @Override
     public void onBindViewHolder(@NonNull @NotNull PartyViewHolder holder, int position) {
         holder.binding.partyName.setText(data.get(position).getName());
-        holder.binding.partyCreator.setText(data.get(position).getCreator().getLastName() + " " + data.get(position).getCreator().getName());
-        holder.binding.partyPeopleCount.setText(data.get(position).getPeopleList().size() + " " +
-                (data.get(position).getMaxPeopleCount() > 0 ? "/ " + data.get(position).getMaxPeopleCount() + " " : "")
-                + "человек");
+        if (data.get(position).getCreator() != null) {
+            holder.binding.partyCreator.setText(data.get(position).getCreator().getLastName() + " " + data.get(position).getCreator().getName());
+        }
+        if (data.get(position).getPeopleList() != null) {
+            holder.binding.partyPeopleCount.setText(data.get(position).getPeopleList().size() + " " +
+                    (data.get(position).getMaxPeopleCount() > 0 ? "/ " + data.get(position).getMaxPeopleCount() + " " : "")
+                    + "человек");
+        }
         holder.binding.partyPlace.setText(data.get(position).getPlace());
 
         if (data.get(position).getStartTime() != null && data.get(position).getStopTime() != null) {
@@ -60,6 +65,10 @@ public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.Part
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public List<Party> getData() {
+        return data;
     }
 
     class PartyViewHolder extends RecyclerView.ViewHolder{

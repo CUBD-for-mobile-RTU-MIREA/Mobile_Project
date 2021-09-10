@@ -1,5 +1,6 @@
 package com.example.partyapp.Presentation.ViewModel;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -10,11 +11,11 @@ import java.util.List;
 
 public class PartyListViewModel extends ViewModel {
 
-    public MutableLiveData<List<Party>> getPartyList() {
+    public LiveData<List<Party>> getPartyList() {
         return Repository.getRepository().getAllParties();
     }
 
-    public void deleteParty(int position) {
-        Repository.getRepository().deleteParty(position);
+    public void deleteParty(Party party) {
+        Repository.getRepository().deleteParty(party);
     }
 }

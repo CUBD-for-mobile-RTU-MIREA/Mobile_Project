@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.partyapp.Domain.Model.Party;
 import com.example.partyapp.Domain.Model.Person;
+import com.example.partyapp.Presentation.Repository.Model.PartyDTO;
 import com.example.partyapp.Presentation.Repository.Repository;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,10 @@ public class AddPartyViewModel extends ViewModel {
         if (!maxPeopleCount.isEmpty()) {
             MaxPeopleCount = Integer.parseInt(maxPeopleCount);
         }
-        Party party = new Party(name, new Person("", ""), MaxPeopleCount);
+        PartyDTO party = new PartyDTO();
+        party.setName(name);
+        party.setCreator(new Person("Леонид", "Шешуков"));
+        party.setMaxPeopleCount(MaxPeopleCount);
         party.setPlace(place);
         party.setDescription(description);
         if (startTime != null) {
