@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/partyList">
+
+    <fragment
+        android:id="@+id/partyList"
+        android:name="com.example.partyapp.Presentation.View.PartyList"
+        android:label="party_list_fragment"
+        tools:layout="@layout/party_list_fragment" >
+        <action
+            android:id="@+id/action_partyList_to_addParty"
+            app:destination="@id/addParty" />
+    </fragment>
+    <fragment
+        android:id="@+id/addParty"
+        android:name="com.example.partyapp.Presentation.View.AddParty"
+        android:label="add_party_fragment"
+        tools:layout="@layout/add_party_fragment" />
+</navigation>
