@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">PartyApp</string>
     <string name="more">Подробнее...</string>
+    <string name="val">Количество</string>
+    <string name="people_on_party">человек сможет прийти на мероприятие</string>
+    <string name="enter_description">Введите описание мероприятия</string>
+    <string name="enter_end_time">Время окончания мероприятия</string>
+    <string name="enter_start_time">Время начала мероприятия</string>
+    <string name="enter_party_place">Введите место мероприятия</string>
+    <string name="enter_party_name">Введите название мероприятия*</string>
+    <string name="add_party">Добавить новое мероприятие</string>
+    <string name="party_images">Фотографии мероприятия</string>
+    <string name="party_members">Участники мероприятия</string>
 </resources>

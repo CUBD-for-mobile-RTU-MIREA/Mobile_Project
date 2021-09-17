@@ -1,148 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Presentation.View.AddParty"
-    android:orientation="vertical">
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:context=".Presentation.View.AddParty">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/normalMargin">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-            <ImageButton
-                android:id="@+id/back_button"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="@dimen/halfMargin"
-                android:minWidth="40dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_marginStart="@dimen/halfMargin"
-
-                android:text="Добавить новое мероприятие"
-                android:textSize="18sp"
-                />
-        </LinearLayout>
-
-
-        <EditText
-            android:id="@+id/party_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:textSize="20sp"
-            android:hint="Введите название мероприятия*"
-
-            android:layout_marginBottom="@dimen/normalMargin"/>
-
-        <EditText
-            android:id="@+id/party_place"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:hint="Введите место мероприятия"
-
-            android:layout_marginBottom="@dimen/halfMargin"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/halfMargin">
+            android:orientation="vertical"
+            android:padding="@dimen/normalMargin">
+
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="Время начала мероприятия"
-                    android:gravity="center"/>
-                <EditText
-                    android:id="@+id/party_start"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:focusable="false"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="Время окончания мероприятия"
-                    android:gravity="center"/>
-                <EditText
-                    android:id="@+id/party_stop"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:focusable="false"/>
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/halfMargin">
+                <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:minWidth="40dp"
+                    android:src="@drawable/back_arrow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/halfMargin"
+                    android:gravity="center_vertical"
+
+                    android:text="@string/add_party"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
             <EditText
-                android:id="@+id/party_max_people_count"
-                android:layout_width="0dp"
+                android:id="@+id/party_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="*"
-                android:textAlignment="center"
-                android:inputType="number"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="человек сможет прийти на мероприятие"
-                android:gravity="center_vertical"/>
+
+                android:layout_marginVertical="@dimen/normalMargin"
+                android:hint="@string/enter_party_name"
+
+                android:textSize="20sp"
+                android:autofillHints="@string/enter_party_name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/party_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="@dimen/halfMargin"
+
+                android:hint="@string/enter_party_place" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/halfMargin">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/enter_start_time" />
+
+                    <EditText
+                        android:id="@+id/party_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:focusable="false" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/enter_end_time" />
+
+                    <EditText
+                        android:id="@+id/party_stop"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:focusable="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/halfMargin">
+
+                <EditText
+                    android:id="@+id/party_max_people_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="@string/val"
+                    android:inputType="number"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:gravity="center_vertical"
+                    android:text="@string/people_on_party" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/party_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="@dimen/halfMargin"
+                android:hint="@string/enter_description"
+
+                android:inputType="textMultiLine"/>
+
+            <RelativeLayout
+                android:id="@+id/imagesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/secondary">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/normalMargin"
+                    android:text="@string/party_images"/>
+                <ImageView
+                    android:id="@+id/imageDropdownArrow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="@dimen/halfMargin"
+                    android:src="@drawable/arrow_down"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/secondaryDark"/>
+            </RelativeLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="@dimen/halfMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:visibility="gone"/>
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/party_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:hint="Введите описание мероприятия"
-            android:inputType="textMultiLine"
-
-            android:layout_marginBottom="@dimen/halfMargin"/>
-    </LinearLayout>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-
-        android:backgroundTint="@color/purple_500"
-        app:fabAlignmentMode="center"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fab"
-        app:layout_anchor="@id/bottom_app_bar"
-        android:src="@android:drawable/ic_input_add"/>
+    </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
