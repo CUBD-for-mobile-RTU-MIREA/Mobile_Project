@@ -15,13 +15,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import ru.realityfamily.partyapp.Domain.Model.Party;
+import ru.realityfamily.partyapp.MainActivity;
 import ru.realityfamily.partyapp.databinding.PartyListElementBinding;
 
 public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.PartyViewHolder> {
     private List<Party> data;
+    private MainActivity mActivity;
 
-    public PartyListAdapter(List<Party> data) {
-
+    public PartyListAdapter(List<Party> data, MainActivity activity) {
+        mActivity = activity;
         this.data = data;
     }
 
@@ -59,6 +61,13 @@ public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.Part
                                     data.get(position).getStopTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) + " " +
                                     data.get(position).getStopTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))
             );
+        }
+
+        if (data.get(position).getImages() != null && !data.get(position).getImages().isEmpty()) {
+            holder.binding.imageSlider.setVisibility(View.VISIBLE);
+            holder.binding.imageSlider.setAdapter(new ImageSliderAdapter(data.get(position).getImages(), false, mActivity));
+        } else {
+            holder.binding.imageSlider.setVisibility(View.GONE);
         }
     }
 

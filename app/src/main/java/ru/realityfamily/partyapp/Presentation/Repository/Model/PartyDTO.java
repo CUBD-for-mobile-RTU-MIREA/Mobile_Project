@@ -38,29 +38,30 @@ public class PartyDTO extends Party {
 
     @Override
     public Person getCreator() {
-        if (super.getCreator() != null) {
-            return super.getCreator();
-        } else {
-            return new Gson().fromJson(this.creator, Person.class);
+        if (super.getCreator() == null) {
+            super.setCreator(new Gson().fromJson(this.creator, Person.class));
         }
+        return super.getCreator();
     }
+
     @Override
     public void setCreator(Person creator) {
         super.setCreator(creator);
         this.creator = new Gson().toJson(creator);
     }
+
     @Override
     public LocalDateTime getStartTime() {
-        if (super.getStartTime() != null) {
-            return super.getStartTime();
-        } else {
+        if (super.getStartTime() == null) {
             if (this.startTime != null) {
                 return LocalDateTime.parse(this.startTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
             } else {
                 return null;
             }
         }
+        return super.getStartTime();
     }
+
     @Override
     public void setStartTime(LocalDateTime startTime) {
         super.setStartTime(startTime);
@@ -70,18 +71,19 @@ public class PartyDTO extends Party {
             this.startTime = null;
         }
     }
+
     @Override
     public LocalDateTime getStopTime() {
-        if (super.getStopTime() != null) {
-            return super.getStopTime();
-        } else {
+        if (super.getStopTime() == null) {
             if (this.stopTime != null) {
                 return LocalDateTime.parse(this.stopTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
             } else {
                 return null;
             }
         }
+        return super.getStopTime();
     }
+
     @Override
     public void setStopTime(LocalDateTime stopTime) {
         super.setStopTime(stopTime);
@@ -91,14 +93,15 @@ public class PartyDTO extends Party {
             this.stopTime = null;
         }
     }
+
     @Override
     public List<Person> getPeopleList() {
-        if (super.getPeopleList() != null) {
-            return super.getPeopleList();
-        } else {
-            return new Gson().fromJson(this.peopleList, List.class);
+        if (super.getPeopleList() == null || super.getPeopleList().isEmpty()) {
+            super.setPeopleList(new Gson().fromJson(this.peopleList, List.class));
         }
+        return super.getPeopleList();
     }
+
     @Override
     public void setPeopleList(List<Person> peopleList) {
         super.setPeopleList(peopleList);
@@ -106,13 +109,17 @@ public class PartyDTO extends Party {
     }
 
     @Override
-    public List<Bitmap> getImages() {
+    public List<String> getImages() {
+        if (super.getImages() == null || super.getImages().isEmpty()) {
+            super.setImages(new Gson().fromJson(this.images, List.class));
+        }
         return super.getImages();
     }
 
     @Override
-    public void setImages(List<Bitmap> images) {
+    public void setImages(List<String> images) {
         super.setImages(images);
+        this.images = new Gson().toJson(images);
     }
 
     public static PartyDTO convertFromParty(Party party) {
@@ -127,6 +134,7 @@ public class PartyDTO extends Party {
         dto.setStartTime(party.getStartTime());
         dto.setStopTime(party.getStopTime());
         dto.setPeopleList(party.getPeopleList());
+        dto.setImages(party.getImages());
 
         return dto;
     }

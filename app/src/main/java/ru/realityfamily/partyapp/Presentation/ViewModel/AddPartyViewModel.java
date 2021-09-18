@@ -3,6 +3,9 @@ package ru.realityfamily.partyapp.Presentation.ViewModel;
 import androidx.lifecycle.ViewModel;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import ru.realityfamily.partyapp.Domain.Model.Party;
 import ru.realityfamily.partyapp.Domain.Model.Person;
@@ -15,7 +18,8 @@ public class AddPartyViewModel extends ViewModel {
                          String place,
                          String description,
                          LocalDateTime startTime,
-                         LocalDateTime stopTime){
+                         LocalDateTime stopTime,
+                         List<String> images){
         int MaxPeopleCount = 0;
         if (!maxPeopleCount.isEmpty()) {
             MaxPeopleCount = Integer.parseInt(maxPeopleCount);
@@ -28,7 +32,8 @@ public class AddPartyViewModel extends ViewModel {
                 place,
                 description,
                 startTime,
-                stopTime
+                stopTime,
+                images.stream().filter(Objects::nonNull).collect(Collectors.toList())
                 );
 
         Repository.getRepository().addParty(party);

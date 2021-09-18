@@ -49,18 +49,6 @@ public class PartyList extends Fragment {
             Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).navigate(R.id.action_partyList_to_addParty);
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            @Override
-            public boolean onMove(@NonNull @NotNull RecyclerView recyclerView, @NonNull @NotNull RecyclerView.ViewHolder viewHolder, @NonNull @NotNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-                mViewModel.deleteParty(((PartyListAdapter) mBinding.partyListRecycler.getAdapter()).getData().get(position));
-            }
-        }).attachToRecyclerView(mBinding.partyListRecycler);
         return mBinding.getRoot();
     }
 
@@ -70,7 +58,7 @@ public class PartyList extends Fragment {
         mViewModel = new ViewModelProvider(this).get(PartyListViewModel.class);
 
         mViewModel.getPartyList().observe(getViewLifecycleOwner(), (List<Party> partyList) -> {
-            mBinding.partyListRecycler.setAdapter(new PartyListAdapter(partyList));
+            mBinding.partyListRecycler.setAdapter(new PartyListAdapter(partyList, ((MainActivity) requireActivity())));
         });
     }
 

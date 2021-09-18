@@ -21,7 +21,7 @@ public class Party {
     private LocalDateTime stopTime;
     public int maxPeopleCount;
     private List<Person> peopleList;
-    private List<Bitmap> images;
+    private List<String> images;
 
     public Party() {
         id = UUID.randomUUID().toString();
@@ -101,11 +101,11 @@ public class Party {
         this.peopleList = peopleList;
     }
 
-    public List<Bitmap> getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public void setImages(List<Bitmap> images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 }

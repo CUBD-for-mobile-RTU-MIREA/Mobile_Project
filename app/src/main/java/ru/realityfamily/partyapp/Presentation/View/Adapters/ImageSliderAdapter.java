@@ -1,6 +1,9 @@
 package ru.realityfamily.partyapp.Presentation.View.Adapters;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,21 +17,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 
+import ru.realityfamily.partyapp.MainActivity;
 import ru.realityfamily.partyapp.databinding.ImageElementBinding;
 
 public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageSliderViewHolder> {
 
     List<String> images;
-    ActivityResultRegistry mRegistry;
+    MainActivity mActivity;
 
-    public ImageSliderAdapter(List<String> images, boolean adding, ActivityResultRegistry registry) {
+    public ImageSliderAdapter(List<String> images, boolean adding, MainActivity activity) {
         this.images = images;
+        mActivity = activity;
 
         if (adding) {
             this.images.add(null);
-            mRegistry = registry;
         }
     }
 
@@ -44,22 +50,38 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
         holder.mBinding.addLayout.getBackground().setAlpha(128);
         if (images.get(position) == null) {
             holder.mBinding.imageContent.setVisibility(View.GONE);
-            holder.mBinding.addLayout.setVisibility(View.VISIBLE);
+            holder.mBinding.addButton.setVisibility(View.VISIBLE);
             holder.mBinding.addButton.setOnClickListener((View v) -> {
-                if (mRegistry != null) {
-                    mRegistry.register("key", new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+                if (mActivity != null) {
+                    mActivity.getActivityResultRegistry().register("key", new ActivityResultContracts.OpenDocument(), new ActivityResultCallback<Uri>() {
                         @Override
                         public void onActivityResult(Uri result) {
+                            mActivity.getApplicationContext().getContentResolver().takePersistableUriPermission(result, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
                             images.add(images.size() - 1, result.toString());
                             notifyDataSetChanged();
                         }
-                    }).launch("image/*");
+                    }).launch(new String[]{"image/*"});
                 }
             });
         } else {
-            holder.mBinding.addLayout.setVisibility(View.GONE);
+            holder.mBinding.addButton.setVisibility(View.GONE);
             holder.mBinding.imageContent.setVisibility(View.VISIBLE);
-            holder.mBinding.imageContent.setImageURI(Uri.parse(images.get(position)));
+
+            if (mActivity != null) {
+                try {
+
+
+                    holder.mBinding.imageContent.setImageBitmap(
+                            BitmapFactory.decodeFileDescriptor(
+                                    mActivity.getApplicationContext().getContentResolver().openFileDescriptor(
+                                            Uri.parse(images.get(position)), "r").getFileDescriptor()
+                            )
+                    );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

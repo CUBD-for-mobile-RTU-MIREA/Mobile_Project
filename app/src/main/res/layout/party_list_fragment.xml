@@ -15,7 +15,5 @@
         android:id="@+id/partyListRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?actionBarSize"
-        android:paddingTop="@dimen/normalMargin"
-        />
+        android:paddingTop="@dimen/normalMargin"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

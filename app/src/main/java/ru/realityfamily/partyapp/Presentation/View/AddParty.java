@@ -64,10 +64,11 @@ public class AddParty extends Fragment {
                         mBinding.partyPlace.getText().toString(),
                         mBinding.partyDescription.getText().toString(),
                         startTime,
-                        stopTime
+                        stopTime,
+                        images
                 );
 
-                Navigation.findNavController(v).popBackStack();
+                Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).popBackStack();
             } else {
                 Toast.makeText(getContext(), "Вы ввели не все данные", Toast.LENGTH_SHORT).show();
             }
@@ -150,7 +151,7 @@ public class AddParty extends Fragment {
             }
         });
 
-        mBinding.imageSlider.setAdapter(new ImageSliderAdapter(images, true, requireActivity().getActivityResultRegistry()));
+        mBinding.imageSlider.setAdapter(new ImageSliderAdapter(images, true, ((MainActivity) requireActivity())));
         mBinding.imageSlider.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
         return mBinding.getRoot();
