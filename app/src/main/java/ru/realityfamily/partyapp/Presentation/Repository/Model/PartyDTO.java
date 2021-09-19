@@ -1,45 +1,80 @@
 package ru.realityfamily.partyapp.Presentation.Repository.Model;
 
-import android.graphics.Bitmap;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import ru.realityfamily.partyapp.Domain.Model.Party;
 import ru.realityfamily.partyapp.Domain.Model.Person;
 
-@Entity(tableName = "party", primaryKeys = {"id"})
+@Entity(tableName = "party", primaryKeys = {"id"}, ignoredColumns = {"creator", "startTime", "stopTime", "peopleList", "images"})
 public class PartyDTO extends Party {
     @ColumnInfo
-    public String creator;
+    private String creatorDTO;
     @ColumnInfo
-    public String startTime;
+    private String startTimeDTO;
     @ColumnInfo
-    public String stopTime;
+    private String stopTimeDTO;
     @ColumnInfo
-    public String peopleList;
+    private String peopleListDTO;
     @ColumnInfo
-    public String images;
+    private String imagesDTO;
+
+
+    public String getCreatorDTO() {
+        return creatorDTO;
+    }
+
+    public String getStartTimeDTO() {
+        return startTimeDTO;
+    }
+
+    public String getStopTimeDTO() {
+        return stopTimeDTO;
+    }
+
+    public String getPeopleListDTO() {
+        return peopleListDTO;
+    }
+
+    public String getImagesDTO() {
+        return imagesDTO;
+    }
+
+    public void setCreatorDTO(String creatorDTO) {
+        this.creatorDTO = creatorDTO;
+        super.setCreator(new Gson().fromJson(this.creatorDTO, Person.class));
+    }
+
+    public void setStartTimeDTO(String startTimeDTO) {
+        this.startTimeDTO = startTimeDTO;
+        super.setStartTime(LocalDateTime.parse(this.startTimeDTO, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+    }
+
+    public void setStopTimeDTO(String stopTimeDTO) {
+        this.stopTimeDTO = stopTimeDTO;
+        super.setStopTime(LocalDateTime.parse(this.stopTimeDTO, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+    }
+
+    public void setPeopleListDTO(String peopleListDTO) {
+        this.peopleListDTO = peopleListDTO;
+        super.setPeopleList(new Gson().fromJson(this.peopleListDTO, List.class));
+    }
+
+    public void setImagesDTO(String imagesDTO) {
+        this.imagesDTO = imagesDTO;
+        super.setImages(new Gson().fromJson(this.imagesDTO, List.class));
+    }
 
     @Override
     public Person getCreator() {
         if (super.getCreator() == null) {
-            super.setCreator(new Gson().fromJson(this.creator, Person.class));
+            super.setCreator(new Gson().fromJson(this.creatorDTO, Person.class));
         }
         return super.getCreator();
     }
@@ -47,14 +82,14 @@ public class PartyDTO extends Party {
     @Override
     public void setCreator(Person creator) {
         super.setCreator(creator);
-        this.creator = new Gson().toJson(creator);
+        this.creatorDTO = new Gson().toJson(creator);
     }
 
     @Override
     public LocalDateTime getStartTime() {
         if (super.getStartTime() == null) {
-            if (this.startTime != null) {
-                return LocalDateTime.parse(this.startTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            if (this.startTimeDTO != null) {
+                super.setStartTime(LocalDateTime.parse(this.startTimeDTO, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
             } else {
                 return null;
             }
@@ -66,17 +101,17 @@ public class PartyDTO extends Party {
     public void setStartTime(LocalDateTime startTime) {
         super.setStartTime(startTime);
         if (startTime != null) {
-            this.startTime = startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            this.startTimeDTO = startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         } else {
-            this.startTime = null;
+            this.startTimeDTO = null;
         }
     }
 
     @Override
     public LocalDateTime getStopTime() {
         if (super.getStopTime() == null) {
-            if (this.stopTime != null) {
-                return LocalDateTime.parse(this.stopTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            if (this.stopTimeDTO != null) {
+                super.setStopTime(LocalDateTime.parse(this.stopTimeDTO, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
             } else {
                 return null;
             }
@@ -88,16 +123,16 @@ public class PartyDTO extends Party {
     public void setStopTime(LocalDateTime stopTime) {
         super.setStopTime(stopTime);
         if (stopTime != null) {
-            this.stopTime = stopTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            this.stopTimeDTO = stopTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         } else {
-            this.stopTime = null;
+            this.stopTimeDTO = null;
         }
     }
 
     @Override
     public List<Person> getPeopleList() {
         if (super.getPeopleList() == null || super.getPeopleList().isEmpty()) {
-            super.setPeopleList(new Gson().fromJson(this.peopleList, List.class));
+            super.setPeopleList(new Gson().fromJson(this.peopleListDTO, List.class));
         }
         return super.getPeopleList();
     }
@@ -105,13 +140,13 @@ public class PartyDTO extends Party {
     @Override
     public void setPeopleList(List<Person> peopleList) {
         super.setPeopleList(peopleList);
-        this.peopleList = new Gson().toJson(peopleList);
+        this.peopleListDTO = new Gson().toJson(peopleList);
     }
 
     @Override
     public List<String> getImages() {
         if (super.getImages() == null || super.getImages().isEmpty()) {
-            super.setImages(new Gson().fromJson(this.images, List.class));
+            super.setImages(new Gson().fromJson(this.imagesDTO, List.class));
         }
         return super.getImages();
     }
@@ -119,7 +154,7 @@ public class PartyDTO extends Party {
     @Override
     public void setImages(List<String> images) {
         super.setImages(images);
-        this.images = new Gson().toJson(images);
+        this.imagesDTO = new Gson().toJson(images);
     }
 
     public static PartyDTO convertFromParty(Party party) {

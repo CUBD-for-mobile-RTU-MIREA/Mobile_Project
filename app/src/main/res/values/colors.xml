@@ -6,4 +6,6 @@
     <color name="secondary">#abcdef</color>
     <color name="secondaryLight">#deffff</color>
     <color name="secondaryDark">#7a9cbc</color>
+
+    <color name="background_secondary">#99ABCDEF</color>
 </resources>

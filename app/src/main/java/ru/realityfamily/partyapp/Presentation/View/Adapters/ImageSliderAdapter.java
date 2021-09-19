@@ -47,7 +47,6 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ImageSliderViewHolder holder, int position) {
-        holder.mBinding.addLayout.getBackground().setAlpha(128);
         if (images.get(position) == null) {
             holder.mBinding.imageContent.setVisibility(View.GONE);
             holder.mBinding.addButton.setVisibility(View.VISIBLE);

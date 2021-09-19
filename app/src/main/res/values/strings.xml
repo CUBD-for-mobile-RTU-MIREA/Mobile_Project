@@ -11,4 +11,9 @@
     <string name="add_party">Добавить новое мероприятие</string>
     <string name="party_images">Фотографии мероприятия</string>
     <string name="party_members">Участники мероприятия</string>
+    <string name="description">Описание:</string>
+    <string name="placement">Местопроведение мероприятия:</string>
+    <string name="timing">Время проведения мероприятия</string>
+    <string name="start_time">Время начала:</string>
+    <string name="end_time">Время окончания:</string>
 </resources>

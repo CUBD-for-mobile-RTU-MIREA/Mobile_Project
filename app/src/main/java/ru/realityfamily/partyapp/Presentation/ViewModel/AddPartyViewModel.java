@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import ru.realityfamily.partyapp.DI.ServiceLocator;
 import ru.realityfamily.partyapp.Domain.Model.Party;
 import ru.realityfamily.partyapp.Domain.Model.Person;
 import ru.realityfamily.partyapp.Domain.Operations.PartyOperations;
-import ru.realityfamily.partyapp.Presentation.Repository.Repository;
 
 public class AddPartyViewModel extends ViewModel {
     public void AddParty(String name,
@@ -36,6 +36,6 @@ public class AddPartyViewModel extends ViewModel {
                 images.stream().filter(Objects::nonNull).collect(Collectors.toList())
                 );
 
-        Repository.getRepository().addParty(party);
+        ServiceLocator.getInstance().getRepository().addParty(party);
     }
 }

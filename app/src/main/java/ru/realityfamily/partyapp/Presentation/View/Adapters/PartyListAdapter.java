@@ -1,21 +1,32 @@
 package ru.realityfamily.partyapp.Presentation.View.Adapters;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import ru.realityfamily.partyapp.DI.ServiceLocator;
 import ru.realityfamily.partyapp.Domain.Model.Party;
 import ru.realityfamily.partyapp.MainActivity;
+import ru.realityfamily.partyapp.R;
 import ru.realityfamily.partyapp.databinding.PartyListElementBinding;
 
 public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.PartyViewHolder> {
@@ -37,6 +48,15 @@ public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.Part
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull PartyViewHolder holder, int position) {
+        holder.binding.partyCard.setOnClickListener((View v) -> {
+            Bundle bundle = new Bundle();
+            String json = ServiceLocator.getInstance().getGson().toJson(data.get(position));
+            bundle.putString("Party", json);
+
+            Navigation.findNavController(mActivity.mBinding.navHostFragment)
+                    .navigate(R.id.action_partyList_to_partyFragment, bundle);
+        });
+
         holder.binding.partyName.setText(data.get(position).getName());
         if (data.get(position).getCreator() != null) {
             holder.binding.partyCreator.setText(data.get(position).getCreator().getLastName() + " " + data.get(position).getCreator().getName());

@@ -3,15 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/addLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/secondaryLight">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:adjustViewBounds="true"
-        android:maxHeight="200dp" />
+        android:layout_centerInParent="true"/>
 
     <ImageButton
         android:id="@+id/addButton"
@@ -20,5 +19,6 @@
         android:layout_centerInParent="true"
         android:background="@drawable/round_button"
         android:padding="@dimen/normalMargin"
+        android:layout_margin="@dimen/normalMargin"
         android:src="@drawable/add" />
 </RelativeLayout>

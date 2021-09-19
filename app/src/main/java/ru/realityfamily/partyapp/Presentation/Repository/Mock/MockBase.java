@@ -1,5 +1,6 @@
 package ru.realityfamily.partyapp.Presentation.Repository.Mock;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -83,5 +84,20 @@ public class MockBase implements RepositoryTasks {
         list.remove(party);
 
         data.setValue(list);
+    }
+
+    @Override
+    public MutableLiveData<Party> findParty(String id, LifecycleOwner owner) {
+        MutableLiveData<Party> specificParty = new MutableLiveData<>();
+
+        data.observe(owner, (List<Party> parties) -> {
+            specificParty.setValue(parties.stream()
+                    .filter(party -> id.equals(party.getId()))
+                    .findAny()
+                    .orElse(null)
+            );
+        });
+
+        return specificParty;
     }
 }

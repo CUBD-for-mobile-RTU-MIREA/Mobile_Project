@@ -170,6 +170,7 @@
 
                 android:layout_marginHorizontal="@dimen/halfMargin"
                 android:layout_marginBottom="@dimen/normalMargin"
+                android:background="@color/background_secondary"
                 android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>

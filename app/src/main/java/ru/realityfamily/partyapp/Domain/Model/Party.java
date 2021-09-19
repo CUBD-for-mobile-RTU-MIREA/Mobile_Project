@@ -12,14 +12,14 @@ import java.util.UUID;
 
 public class Party {
     @NotNull
-    public String id;
-    public String name;
-    public String description;
-    public String place;
+    private String id;
+    private String name;
+    private String description;
+    private String place;
     private Person creator;
     private LocalDateTime startTime;
     private LocalDateTime stopTime;
-    public int maxPeopleCount;
+    private int maxPeopleCount;
     private List<Person> peopleList;
     private List<String> images;
 

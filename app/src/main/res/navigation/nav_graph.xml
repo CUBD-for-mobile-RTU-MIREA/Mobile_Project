@@ -16,6 +16,14 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_partyList_to_partyFragment"
+            app:destination="@id/partyFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
@@ -23,4 +31,9 @@
         android:name="ru.realityfamily.partyapp.Presentation.View.AddParty"
         android:label="add_party_fragment"
         tools:layout="@layout/add_party_fragment" />
+    <fragment
+        android:id="@+id/partyFragment"
+        android:name="ru.realityfamily.partyapp.Presentation.View.PartyFragment"
+        android:label="party_fragment"
+        tools:layout="@layout/party_fragment" />
 </navigation>
