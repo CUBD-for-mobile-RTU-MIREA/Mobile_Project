@@ -6,31 +6,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".Presentation.View.PartyList">
+    tools:context=".Presentation.View.PartyList"
+    android:background="@android:color/transparent">
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-
-        android:backgroundTint="@color/purple_500"
-        app:fabAlignmentMode="center"
-        app:hideOnScroll="true"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fab"
-        app:layout_anchor="@id/bottom_app_bar"
-        android:src="@android:drawable/ic_input_add"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/partyListRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?actionBarSize"
-        android:paddingTop="@dimen/normalMargin"
-        />
+        android:paddingTop="@dimen/normalMargin"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
