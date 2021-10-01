@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import ru.realityfamily.partyapp.Presentation.Repository.Mock.MockBase;
+import ru.realityfamily.partyapp.Presentation.Repository.Network.AddressLogic.AddressAnalysis;
 import ru.realityfamily.partyapp.Presentation.Repository.RepositoryTasks;
 import ru.realityfamily.partyapp.Presentation.Repository.Room.PartyRepository;
 
@@ -29,6 +30,7 @@ public class ServiceLocator {
 
     private Gson mGson;
     private RepositoryTasks mRepository;
+    private AddressAnalysis mAnalysis;
 
     public Gson getGson() {
         if (mGson == null) {
@@ -60,5 +62,12 @@ public class ServiceLocator {
             mRepository = new MockBase();
         }
         return mRepository;
+    }
+
+    public AddressAnalysis getAnalysis() {
+        if (mAnalysis == null) {
+            mAnalysis = new AddressAnalysis();
+        }
+        return mAnalysis;
     }
 }

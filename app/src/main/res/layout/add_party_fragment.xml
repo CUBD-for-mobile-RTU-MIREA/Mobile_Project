@@ -54,14 +54,12 @@
                 android:autofillHints="@string/enter_party_name"
                 android:inputType="text" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/party_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginBottom="@dimen/halfMargin"
-
-                android:hint="@string/enter_party_place" />
+                android:hint="@string/enter_party_place"
+                android:layout_marginBottom="@dimen/halfMargin"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

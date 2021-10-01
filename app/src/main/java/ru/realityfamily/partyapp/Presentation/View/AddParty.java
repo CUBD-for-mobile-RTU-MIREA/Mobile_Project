@@ -13,9 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -71,6 +75,29 @@ public class AddParty extends Fragment {
                 Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).popBackStack();
             } else {
                 Toast.makeText(getContext(), "Вы ввели не все данные", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mBinding.partyPlace.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mViewModel.getAddressList(s.toString()).observe(getViewLifecycleOwner(), (List<String> values) -> {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                            getContext(),
+                            android.R.layout.simple_dropdown_item_1line,
+                            values
+                    );
+                    adapter.getFilter().filter(null);
+                    mBinding.partyPlace.setAdapter(adapter);
+                });
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 

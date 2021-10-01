@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,14 +53,14 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
             holder.mBinding.addButton.setVisibility(View.VISIBLE);
             holder.mBinding.addButton.setOnClickListener((View v) -> {
                 if (mActivity != null) {
-                    mActivity.getActivityResultRegistry().register("key", new ActivityResultContracts.OpenDocument(), new ActivityResultCallback<Uri>() {
-                        @Override
-                        public void onActivityResult(Uri result) {
-                            mActivity.getApplicationContext().getContentResolver().takePersistableUriPermission(result, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    mActivity.getActivityResultRegistry().register("key", new ActivityResultContracts.OpenDocument(), result -> {
+                        mActivity.getApplicationContext().getContentResolver().takePersistableUriPermission(
+                                result,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        );
 
-                            images.add(images.size() - 1, result.toString());
-                            notifyDataSetChanged();
-                        }
+                        images.add(images.size() - 1, result.toString());
+                        notifyDataSetChanged();
                     }).launch(new String[]{"image/*"});
                 }
             });
@@ -69,8 +70,6 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
 
             if (mActivity != null) {
                 try {
-
-
                     holder.mBinding.imageContent.setImageBitmap(
                             BitmapFactory.decodeFileDescriptor(
                                     mActivity.getApplicationContext().getContentResolver().openFileDescriptor(
