@@ -32,15 +32,17 @@ public class MainActivity extends AppCompatActivity {
             String[] parts = income.toString().split("/");
             String id = parts[parts.length - 1];
             ServiceLocator.getInstance().getRepository().findParty(id, this).observe(this, (Party party) -> {
-                Bundle bundle = new Bundle();
-                bundle.putString("Party", ServiceLocator.getInstance().getGson().toJson(party));
+                if (party != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Party", ServiceLocator.getInstance().getGson().toJson(party));
 
-                Log.i("PARTY_APP", ServiceLocator.getInstance().getGson().toJson(party));
+                    //Log.i("PARTY_APP", ServiceLocator.getInstance().getGson().toJson(party));
 
-                Navigation.findNavController(mBinding.navHostFragment).navigate(
-                        R.id.action_partyList_to_partyFragment,
-                        bundle
-                );
+                    Navigation.findNavController(mBinding.navHostFragment).navigate(
+                            R.id.action_partyList_to_partyFragment,
+                            bundle
+                    );
+                }
             });
         }
     }

@@ -1,5 +1,7 @@
 package ru.realityfamily.partyapp.Presentation.ViewModel;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.time.LocalDateTime;
@@ -37,5 +39,9 @@ public class AddPartyViewModel extends ViewModel {
                 );
 
         ServiceLocator.getInstance().getRepository().addParty(party);
+    }
+
+    public LiveData<List<String>> getAddressList(String address_prototype) {
+        return ServiceLocator.getInstance().getAnalysis().getAddressesFromPattern(address_prototype);
     }
 }

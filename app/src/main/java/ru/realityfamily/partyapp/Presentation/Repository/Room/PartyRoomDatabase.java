@@ -27,7 +27,6 @@ public abstract class PartyRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             PartyRoomDatabase.class, "partyApp_database")
-                            .allowMainThreadQueries()
                             .build();
                 }
             }
