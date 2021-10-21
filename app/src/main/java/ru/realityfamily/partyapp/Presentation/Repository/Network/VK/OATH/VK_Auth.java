@@ -1,5 +1,6 @@
 package ru.realityfamily.partyapp.Presentation.Repository.Network.VK.OATH;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebResourceRequest;
@@ -8,6 +9,8 @@ import android.webkit.WebViewClient;
 
 import androidx.navigation.Navigation;
 
+import ru.realityfamily.partyapp.DI.ServiceLocator;
+import ru.realityfamily.partyapp.Domain.Model.Person;
 import ru.realityfamily.partyapp.MainActivity;
 import ru.realityfamily.partyapp.R;
 
@@ -27,9 +30,21 @@ public class VK_Auth {
                     String token = Uri.parse(request.getUrl().toString().replace("#", "?")).getQueryParameter("access_token");
                     String email = Uri.parse(request.getUrl().toString().replace("#", "?")).getQueryParameter("email");
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("token", token);
-                    Navigation.findNavController(activity.mBinding.navHostFragment).navigate(R.id.action_webFragment_to_authFragment, bundle);
+                    ServiceLocator.getInstance().getRepository().findPerson(email, activity).observe(activity, (person) -> {
+                        if (person == null) {
+                            Person newPerson = new Person();
+                            newPerson.setEmail(email);
+
+                            ServiceLocator.getInstance().setPerson(newPerson);
+                        } else {
+                            ServiceLocator.getInstance().setPerson(person);
+                        }
+                    });
+                    ServiceLocator.getInstance().getVK_API().getPersonInfo(token, activity);
+                    
+                    activity.getPreferences(Context.MODE_PRIVATE).edit().putString("token", token).apply();
+                    
+                    Navigation.findNavController(activity.mBinding.navHostFragment).navigate(R.id.action_webFragment_to_authFragment);
 
                     return false;
                 }

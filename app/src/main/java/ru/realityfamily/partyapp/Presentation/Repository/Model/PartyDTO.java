@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import ru.realityfamily.partyapp.DI.ServiceLocator;
 import ru.realityfamily.partyapp.Domain.Model.Party;
 import ru.realityfamily.partyapp.Domain.Model.Person;
 
@@ -48,7 +49,7 @@ public class PartyDTO extends Party {
 
     public void setCreatorDTO(String creatorDTO) {
         this.creatorDTO = creatorDTO;
-        super.setCreator(new Gson().fromJson(this.creatorDTO, Person.class));
+        super.setCreator(ServiceLocator.getInstance().getGson().fromJson(this.creatorDTO, Person.class));
     }
 
     public void setStartTimeDTO(String startTimeDTO) {
@@ -63,18 +64,18 @@ public class PartyDTO extends Party {
 
     public void setPeopleListDTO(String peopleListDTO) {
         this.peopleListDTO = peopleListDTO;
-        super.setPeopleList(new Gson().fromJson(this.peopleListDTO, List.class));
+        super.setPeopleList(ServiceLocator.getInstance().getGson().fromJson(this.peopleListDTO, List.class));
     }
 
     public void setImagesDTO(String imagesDTO) {
         this.imagesDTO = imagesDTO;
-        super.setImages(new Gson().fromJson(this.imagesDTO, List.class));
+        super.setImages(ServiceLocator.getInstance().getGson().fromJson(this.imagesDTO, List.class));
     }
 
     @Override
     public Person getCreator() {
         if (super.getCreator() == null) {
-            super.setCreator(new Gson().fromJson(this.creatorDTO, Person.class));
+            super.setCreator(ServiceLocator.getInstance().getGson().fromJson(this.creatorDTO, Person.class));
         }
         return super.getCreator();
     }
@@ -82,7 +83,7 @@ public class PartyDTO extends Party {
     @Override
     public void setCreator(Person creator) {
         super.setCreator(creator);
-        this.creatorDTO = new Gson().toJson(creator);
+        this.creatorDTO = ServiceLocator.getInstance().getGson().toJson(creator);
     }
 
     @Override
@@ -132,7 +133,7 @@ public class PartyDTO extends Party {
     @Override
     public List<Person> getPeopleList() {
         if (super.getPeopleList() == null || super.getPeopleList().isEmpty()) {
-            super.setPeopleList(new Gson().fromJson(this.peopleListDTO, List.class));
+            super.setPeopleList(ServiceLocator.getInstance().getGson().fromJson(this.peopleListDTO, List.class));
         }
         return super.getPeopleList();
     }
@@ -140,13 +141,13 @@ public class PartyDTO extends Party {
     @Override
     public void setPeopleList(List<Person> peopleList) {
         super.setPeopleList(peopleList);
-        this.peopleListDTO = new Gson().toJson(peopleList);
+        this.peopleListDTO = ServiceLocator.getInstance().getGson().toJson(peopleList);
     }
 
     @Override
     public List<String> getImages() {
         if (super.getImages() == null || super.getImages().isEmpty()) {
-            super.setImages(new Gson().fromJson(this.imagesDTO, List.class));
+            super.setImages(ServiceLocator.getInstance().getGson().fromJson(this.imagesDTO, List.class));
         }
         return super.getImages();
     }
@@ -154,7 +155,7 @@ public class PartyDTO extends Party {
     @Override
     public void setImages(List<String> images) {
         super.setImages(images);
-        this.imagesDTO = new Gson().toJson(images);
+        this.imagesDTO = ServiceLocator.getInstance().getGson().toJson(images);
     }
 
     public static PartyDTO convertFromParty(Party party) {

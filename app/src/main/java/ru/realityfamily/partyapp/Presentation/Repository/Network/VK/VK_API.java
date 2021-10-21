@@ -10,5 +10,5 @@ import ru.realityfamily.partyapp.Domain.Model.Person;
 
 public interface VK_API {
     @GET("account.getProfileInfo")
-    Call<Person> getPersonInfo(@QueryMap Map<String, String> api_info, @Query("access_token") String access_token);
+    Call<VK_API_Logic.APIResponse> getPersonInfo(@QueryMap Map<String, String> api_info, @Query("access_token") String access_token);
 }

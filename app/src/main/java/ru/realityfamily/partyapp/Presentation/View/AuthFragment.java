@@ -1,5 +1,6 @@
 package ru.realityfamily.partyapp.Presentation.View;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,10 +29,16 @@ public class AuthFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        if (getArguments() != null && getArguments().containsKey("token")) {
-            if (mViewModel.auth(getArguments().getString("token"))) {
-                Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).navigate(R.id.action_authFragment_to_partyList);
+        try {
+            if (getActivity().getPreferences(Context.MODE_PRIVATE).contains("token")) {
+                if (mViewModel.auth(
+                        getActivity().getPreferences(Context.MODE_PRIVATE).getString("token", null)
+                )) {
+                    Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).navigate(R.id.action_authFragment_to_partyList);
+                }
             }
+        } catch (NullPointerException exc) {
+            exc.printStackTrace();
         }
     }
 
@@ -42,7 +49,17 @@ public class AuthFragment extends Fragment {
 
         mBinding.vkAuth.setOnClickListener((view) -> ServiceLocator.getInstance().getVK_API().auth.auth((MainActivity) getActivity()));
 
-        mBinding.auth.setOnClickListener((view) -> Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).navigate(R.id.action_authFragment_to_partyList));
+        mBinding.auth.setOnClickListener((view) -> {
+            if (!mBinding.login.getText().toString().isEmpty() && !mBinding.password.getText().toString().isEmpty()) {
+                mViewModel.auth(mBinding.login.getText().toString(), mBinding.password.getText().toString(), getViewLifecycleOwner()).observe(getViewLifecycleOwner(), (person) -> {
+                    if (person != null) {
+                        ServiceLocator.getInstance().setPerson(person);
+
+                        Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).navigate(R.id.action_authFragment_to_partyList);
+                    }
+                });
+            }
+        });
 
         return mBinding.getRoot();
     }

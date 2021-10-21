@@ -1,7 +1,6 @@
 package ru.realityfamily.partyapp.DI;
 
 import android.app.Application;
-import android.app.Person;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,6 +11,7 @@ import com.google.gson.JsonSerializer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import ru.realityfamily.partyapp.Domain.Model.Person;
 import ru.realityfamily.partyapp.Presentation.Repository.Mock.MockBase;
 import ru.realityfamily.partyapp.Presentation.Repository.Network.AddressLogic.AddressAnalysis;
 import ru.realityfamily.partyapp.Presentation.Repository.Network.VK.OATH.VK_Auth;

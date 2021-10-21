@@ -87,6 +87,26 @@ public class MockBase implements RepositoryTasks {
     }
 
     @Override
+    public <T extends Person> LiveData<T> findPerson(String email, LifecycleOwner owner) {
+        return null;
+    }
+
+    @Override
+    public <T extends Person> LiveData<T> findPerson(String email, String password, LifecycleOwner owner) {
+        return null;
+    }
+
+    @Override
+    public void addPerson(Person person) {
+
+    }
+
+    @Override
+    public void updatePerson(Person person) {
+
+    }
+
+    @Override
     public MutableLiveData<Party> findParty(String id, LifecycleOwner owner) {
         MutableLiveData<Party> specificParty = new MutableLiveData<>();
 
