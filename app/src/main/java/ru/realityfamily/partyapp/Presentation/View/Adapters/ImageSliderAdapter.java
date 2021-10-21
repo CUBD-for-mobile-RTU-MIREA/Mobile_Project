@@ -54,13 +54,15 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
             holder.mBinding.addButton.setOnClickListener((View v) -> {
                 if (mActivity != null) {
                     mActivity.getActivityResultRegistry().register("key", new ActivityResultContracts.OpenDocument(), result -> {
-                        mActivity.getApplicationContext().getContentResolver().takePersistableUriPermission(
-                                result,
-                                Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        );
+                        if (result != null) {
+                            mActivity.getApplicationContext().getContentResolver().takePersistableUriPermission(
+                                    result,
+                                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            );
 
-                        images.add(images.size() - 1, result.toString());
-                        notifyDataSetChanged();
+                            images.add(images.size() - 1, result.toString());
+                            notifyDataSetChanged();
+                        }
                     }).launch(new String[]{"image/*"});
                 }
             });

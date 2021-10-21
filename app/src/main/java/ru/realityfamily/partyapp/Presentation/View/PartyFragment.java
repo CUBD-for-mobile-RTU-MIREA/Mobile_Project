@@ -60,8 +60,6 @@ public class PartyFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = PartyFragmentBinding.inflate(inflater, container, false);
 
-        ((MainActivity) getActivity()).mBinding.fab.setImageResource(R.drawable.share);
-
         ((MainActivity) getActivity()).setSupportActionBar(mBinding.toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mBinding.toolbar.setNavigationOnClickListener((View v) -> {
@@ -69,11 +67,11 @@ public class PartyFragment extends Fragment {
         });
 
         if (mViewModel.getParty() != null) {
-            ((MainActivity) getActivity()).mBinding.fab.setOnClickListener((View v) -> {
+            mBinding.fab.setOnClickListener((View v) -> {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://rf.party_app/" + mViewModel.getParty().getId());
-                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "app://rf.party_app/" + mViewModel.getParty().getId());
+                sendIntent.setType("text/html");
 
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
                 startActivity(shareIntent);

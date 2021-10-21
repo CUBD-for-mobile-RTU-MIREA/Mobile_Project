@@ -9,17 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -59,7 +50,7 @@ public class PartyListAdapter extends RecyclerView.Adapter<PartyListAdapter.Part
 
         holder.binding.partyName.setText(data.get(position).getName());
         if (data.get(position).getCreator() != null) {
-            holder.binding.partyCreator.setText(data.get(position).getCreator().getLastName() + " " + data.get(position).getCreator().getName());
+            holder.binding.partyCreator.setText(data.get(position).getCreator().getLast_name() + " " + data.get(position).getCreator().getFirst_name());
         }
         if (data.get(position).getPeopleList() != null) {
             holder.binding.partyPeopleCount.setText(data.get(position).getPeopleList().size() + " " +

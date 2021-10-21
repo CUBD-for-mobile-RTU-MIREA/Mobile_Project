@@ -39,7 +39,7 @@ public class AddressAnalysis {
 
             @Override
             public void onFailure(Call<AddressResponse> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
 

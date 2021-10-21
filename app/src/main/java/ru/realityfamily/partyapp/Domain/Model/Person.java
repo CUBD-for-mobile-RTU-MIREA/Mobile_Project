@@ -1,32 +1,44 @@
 package ru.realityfamily.partyapp.Domain.Model;
 
-import java.io.Serializable;
+import java.util.Map;
+import java.util.UUID;
 
 public class Person {
-    private String name;
-    private String lastName;
+    private String id;
+    private String first_name;
+    private String last_name;
     private String phone;
-    private String vk;
+    private Role role;
+    private Map<String, String> connections;
 
-    public Person(String name, String lastName) {
-        this.name = name;
-        this.lastName = lastName;
+    public Person() {
+        id = UUID.randomUUID().toString();
     }
 
-    public String getName() {
-        return name;
+    public Person(String first_name, String last_name) {
+        this();
+        this.first_name = first_name;
+        this.last_name = last_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getId() {
+        return id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public String getPhone() {
@@ -37,11 +49,25 @@ public class Person {
         this.phone = phone;
     }
 
-    public String getVk() {
-        return vk;
+    public Role getRole() {
+        return role;
     }
 
-    public void setVk(String vk) {
-        this.vk = vk;
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Map<String, String> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(Map<String, String> connections) {
+        this.connections = connections;
+    }
+
+    enum Role {
+        Admin,
+        Moder,
+        User,
     }
 }

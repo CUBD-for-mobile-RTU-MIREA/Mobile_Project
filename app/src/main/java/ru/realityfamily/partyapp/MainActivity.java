@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import ru.realityfamily.partyapp.DI.ServiceLocator;
 import ru.realityfamily.partyapp.Domain.Model.Party;
@@ -29,21 +30,25 @@ public class MainActivity extends AppCompatActivity {
 
         Uri income = getIntent().getData();
         if (income != null) {
-            String[] parts = income.toString().split("/");
-            String id = parts[parts.length - 1];
-            ServiceLocator.getInstance().getRepository().findParty(id, this).observe(this, (Party party) -> {
-                if (party != null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("Party", ServiceLocator.getInstance().getGson().toJson(party));
+            if (income.toString().contains("rf.party_app")) {
+                String[] parts = income.toString().split("/");
+                String id = parts[parts.length - 1];
+                ServiceLocator.getInstance().getRepository().findParty(id, this).observe(this, (Party party) -> {
+                    if (party != null) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Party", ServiceLocator.getInstance().getGson().toJson(party));
 
-                    //Log.i("PARTY_APP", ServiceLocator.getInstance().getGson().toJson(party));
+                        //Log.i("PARTY_APP", ServiceLocator.getInstance().getGson().toJson(party));
 
-                    Navigation.findNavController(mBinding.navHostFragment).navigate(
-                            R.id.action_partyList_to_partyFragment,
-                            bundle
-                    );
-                }
-            });
+                        Navigation.findNavController(mBinding.navHostFragment).navigate(
+                                R.id.action_partyList_to_partyFragment,
+                                bundle
+                        );
+                    }
+                });
+            } else if (income.toString().contains("code")) {
+                String[] parts = income.toString().split("\\?");
+            }
         }
     }
 }

@@ -46,10 +46,6 @@ public class AddParty extends Fragment {
     private LocalDateTime stopTime = null;
     private List<String> images = new ArrayList<>();
 
-    public static AddParty newInstance() {
-        return new AddParty();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -59,8 +55,7 @@ public class AddParty extends Fragment {
             Navigation.findNavController(v).popBackStack();
         });
 
-        ((MainActivity) getActivity()).mBinding.fab.setImageResource(R.drawable.save);
-        ((MainActivity) getActivity()).mBinding.fab.setOnClickListener((View v) -> {
+        mBinding.fab.setOnClickListener((View v) -> {
             if (!mBinding.partyName.getText().toString().isEmpty()) {
                 mViewModel.AddParty(
                         mBinding.partyName.getText().toString(),

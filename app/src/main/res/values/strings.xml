@@ -16,4 +16,8 @@
     <string name="timing">Время проведения мероприятия</string>
     <string name="start_time">Время начала:</string>
     <string name="end_time">Время окончания:</string>
+    <string name="vk_in">Войти через вконтакте</string>
+    <string name="auth">Войти</string>
+    <string name="pass">Пароль</string>
+    <string name="login">Логин</string>
 </resources>

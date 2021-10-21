@@ -7,6 +7,25 @@
     android:background="@android:color/transparent"
     tools:context=".Presentation.View.PartyFragment">
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
+        android:backgroundTint="@color/main"
+        app:fabAlignmentMode="center"
+        app:hideOnScroll="true"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab"
+        android:src="@drawable/share"
+        app:layout_anchor="@id/bottom_app_bar"
+        android:background="@color/secondary"/>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"

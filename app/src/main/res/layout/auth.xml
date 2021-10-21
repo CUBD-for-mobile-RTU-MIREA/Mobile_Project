@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Авторизация"
+            android:gravity="center_vertical"
+            android:textSize="25sp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginHorizontal="60dp"/>
+
+        <EditText
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login"
+            android:textAlignment="center"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/pass"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:inputType="textPassword"/>
+
+        <Button
+            android:id="@+id/auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auth"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/secondary"/>
+
+        <Button
+            android:id="@+id/vkAuth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vk_in"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/secondary"/>
+    </LinearLayout>
+
+</RelativeLayout>

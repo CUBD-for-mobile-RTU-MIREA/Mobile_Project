@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/partyList">
+    app:startDestination="@id/authFragment">
 
     <fragment
         android:id="@+id/partyList"
@@ -25,6 +25,9 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_partyList_to_authFragment"
+            app:destination="@id/authFragment" />
     </fragment>
     <fragment
         android:id="@+id/addParty"
@@ -36,4 +39,25 @@
         android:name="ru.realityfamily.partyapp.Presentation.View.PartyFragment"
         android:label="party_fragment"
         tools:layout="@layout/party_fragment" />
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="ru.realityfamily.partyapp.Presentation.View.AuthFragment"
+        android:label="AuthFragment" >
+        <action
+            android:id="@+id/action_authFragment_to_partyList"
+            app:destination="@id/partyList" />
+        <action
+            android:id="@+id/action_authFragment_to_webFragment"
+            app:destination="@id/webFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="ru.realityfamily.partyapp.Presentation.View.WebFragment"
+        android:label="WebFragment" >
+        <action
+            android:id="@+id/action_webFragment_to_authFragment"
+            app:destination="@id/authFragment"
+            app:popUpTo='@id/nav_graph'
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

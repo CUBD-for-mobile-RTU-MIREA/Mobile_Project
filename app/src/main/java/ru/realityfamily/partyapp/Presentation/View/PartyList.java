@@ -44,8 +44,8 @@ public class PartyList extends Fragment {
 
         mBinding.partyListRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ((MainActivity) getActivity()).mBinding.fab.setImageResource(R.drawable.add);
-        ((MainActivity) getActivity()).mBinding.fab.setOnClickListener((View v) -> {
+        mBinding.fab.setImageResource(R.drawable.add);
+        mBinding.fab.setOnClickListener((View v) -> {
             Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).navigate(R.id.action_partyList_to_addParty);
         });
 

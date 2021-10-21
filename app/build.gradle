@@ -6,15 +6,19 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    def keystorePropertiesFile = rootProject.file("keystore.properties")
+    def keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
     defaultConfig {
         applicationId "ru.realityfamily.partyapp"
-        minSdkVersion 28
+        minSdkVersion 30
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         // DaData API Key
-        buildConfigField "String", "DADATA_API_KEY", "\"50ec4c469fbd4e783167dea1accbdcceecfcdfea\""
+        buildConfigField "String", "DADATA_API_KEY", keystoreProperties["DADATA_API_KEY"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,10 +32,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
