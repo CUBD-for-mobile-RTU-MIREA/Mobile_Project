@@ -14,7 +14,8 @@ public class PartyOperations {
                                  String description,
                                  LocalDateTime startTime,
                                  LocalDateTime stopTime,
-                                 List<String> images) {
+                                 List<String> images,
+                                 boolean verified) {
         Party party = new Party();
         party.setName(name);
         if (creator != null) {
@@ -29,6 +30,7 @@ public class PartyOperations {
         party.setStopTime(stopTime);
         party.getPeopleList().add(party.getCreator());
         party.setImages(images);
+        party.setVerified(verified);
         return party;
     }
 }

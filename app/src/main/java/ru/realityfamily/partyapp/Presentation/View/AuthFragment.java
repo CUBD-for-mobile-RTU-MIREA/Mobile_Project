@@ -28,18 +28,6 @@ public class AuthFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-
-        try {
-            if (getActivity().getPreferences(Context.MODE_PRIVATE).contains("token")) {
-                if (mViewModel.auth(
-                        getActivity().getPreferences(Context.MODE_PRIVATE).getString("token", null)
-                )) {
-                    Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).navigate(R.id.action_authFragment_to_partyList);
-                }
-            }
-        } catch (NullPointerException exc) {
-            exc.printStackTrace();
-        }
     }
 
     @Override
@@ -47,19 +35,28 @@ public class AuthFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = AuthBinding.inflate(inflater, container, false);
 
-        mBinding.vkAuth.setOnClickListener((view) -> ServiceLocator.getInstance().getVK_API().auth.auth((MainActivity) getActivity()));
+        mBinding.vkAuth.setOnClickListener((view) -> ServiceLocator.getInstance().getVK_API().auth.auth((MainActivity) requireActivity()));
 
         mBinding.auth.setOnClickListener((view) -> {
             if (!mBinding.login.getText().toString().isEmpty() && !mBinding.password.getText().toString().isEmpty()) {
-                mViewModel.auth(mBinding.login.getText().toString(), mBinding.password.getText().toString(), getViewLifecycleOwner()).observe(getViewLifecycleOwner(), (person) -> {
+                mViewModel.auth(mBinding.login.getText().toString(), mBinding.password.getText().toString(), (MainActivity) requireActivity()).observe(getViewLifecycleOwner(), (person) -> {
                     if (person != null) {
-                        ServiceLocator.getInstance().setPerson(person);
-
-                        Navigation.findNavController(((MainActivity) getActivity()).mBinding.navHostFragment).navigate(R.id.action_authFragment_to_partyList);
+                        Navigation.findNavController(((MainActivity) requireActivity()).mBinding.navHostFragment).navigate(R.id.action_authFragment_to_partyList);
                     }
                 });
             }
         });
+
+        try {
+            if (getActivity().getPreferences(Context.MODE_PRIVATE).contains("token")) {
+                mViewModel.auth(
+                        getActivity().getPreferences(Context.MODE_PRIVATE).getString("token", null),
+                        (MainActivity) requireActivity()
+                );
+            }
+        } catch (NullPointerException exc) {
+            exc.printStackTrace();
+        }
 
         return mBinding.getRoot();
     }

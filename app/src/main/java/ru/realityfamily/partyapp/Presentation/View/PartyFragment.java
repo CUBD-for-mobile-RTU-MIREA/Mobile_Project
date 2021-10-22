@@ -67,15 +67,35 @@ public class PartyFragment extends Fragment {
         });
 
         if (mViewModel.getParty() != null) {
-            mBinding.fab.setOnClickListener((View v) -> {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "app://rf.party_app/" + mViewModel.getParty().getId());
-                sendIntent.setType("text/html");
+            switch (ServiceLocator.getInstance().getPerson().getRole()) {
+                case Admin:
+                    break;
+                case Moder:
+                    mBinding.moderFABs.setVisibility(View.VISIBLE);
+                    mBinding.fab.setVisibility(View.GONE);
 
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
-            });
+                    mBinding.fabCheck.setOnClickListener((v) -> {
+                        mViewModel.verifyParty();
+                    });
+                    mBinding.fabCross.setOnClickListener((v) -> {
+                        mViewModel.unVerifyParty();
+                    });
+                    break;
+                case User:
+                    mBinding.moderFABs.setVisibility(View.GONE);
+                    mBinding.fab.setVisibility(View.VISIBLE);
+
+                    mBinding.fab.setOnClickListener((View v) -> {
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "app://rf.party_app/" + mViewModel.getParty().getId());
+                        sendIntent.setType("text/html");
+
+                        Intent shareIntent = Intent.createChooser(sendIntent, null);
+                        startActivity(shareIntent);
+                    });
+                    break;
+            }
 
             mBinding.imageSlider.setAdapter(new ImageSliderAdapter(mViewModel.getParty().getImages(), false, ((MainActivity) requireActivity())));
             mBinding.toolbarLayout.setTitle(mViewModel.getParty().getName());

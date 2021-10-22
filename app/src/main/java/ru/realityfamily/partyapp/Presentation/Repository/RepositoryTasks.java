@@ -11,9 +11,13 @@ import ru.realityfamily.partyapp.Domain.Model.Person;
 
 public interface RepositoryTasks {
     <T extends Party> LiveData<List<T>> getAllParties();
+    <T extends Party> LiveData<List<T>> getVerifiedParties();
+    <T extends Party> LiveData<List<T>> getNotVerifiedParties();
     void addParty(Party party);
     void deleteParty(Party party);
     <T extends Party> LiveData<T> findParty(String id, LifecycleOwner owner);
+    <T extends Party> LiveData<T> findVerifiedParty(String id, LifecycleOwner owner);
+    void updateParty(Party party);
 
     <T extends Person> LiveData<T> findPerson(String email, LifecycleOwner owner);
     <T extends Person> LiveData<T> findPerson(String email, String password, LifecycleOwner owner);

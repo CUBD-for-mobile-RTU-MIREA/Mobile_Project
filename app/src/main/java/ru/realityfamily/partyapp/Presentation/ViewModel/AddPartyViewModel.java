@@ -35,7 +35,8 @@ public class AddPartyViewModel extends ViewModel {
                 description,
                 startTime,
                 stopTime,
-                images.stream().filter(Objects::nonNull).collect(Collectors.toList())
+                images.stream().filter(Objects::nonNull).collect(Collectors.toList()),
+                ServiceLocator.getInstance().getPerson().getRole() != Person.Role.User
                 );
 
         ServiceLocator.getInstance().getRepository().addParty(party);

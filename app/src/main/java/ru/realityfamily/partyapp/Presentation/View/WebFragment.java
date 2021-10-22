@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.WebSettings;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +34,8 @@ public class WebFragment extends Fragment{
         mBinding = WebFragmentBinding.inflate(inflater, container, false);
 
         if (url != null && !url.isEmpty()) {
+            CookieManager.getInstance().removeAllCookies(null);
+            mBinding.Web.clearCache(true);
             mBinding.Web.loadUrl(url);
             mBinding.Web.setWebViewClient(ServiceLocator.getInstance().getVK_API().auth.oath2VK((MainActivity) getActivity()));
         }

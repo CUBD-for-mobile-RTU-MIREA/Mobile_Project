@@ -42,7 +42,7 @@ public class VK_Auth {
                     });
                     ServiceLocator.getInstance().getVK_API().getPersonInfo(token, activity);
                     
-                    activity.getPreferences(Context.MODE_PRIVATE).edit().putString("token", token).apply();
+                    //activity.getPreferences(Context.MODE_PRIVATE).edit().putString("token", token).putString("email", email).apply();
                     
                     Navigation.findNavController(activity.mBinding.navHostFragment).navigate(R.id.action_webFragment_to_authFragment);
 

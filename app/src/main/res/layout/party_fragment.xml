@@ -24,7 +24,33 @@
         android:id="@+id/fab"
         android:src="@drawable/share"
         app:layout_anchor="@id/bottom_app_bar"
-        android:background="@color/secondary"/>
+        android:backgroundTint="@color/secondary"
+        android:layout_marginEnd="60dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/moderFABs">
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fabCheck"
+            app:icon="@drawable/check"
+            android:text="Принять"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:layout_marginEnd="40dp"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fabCross"
+            app:icon="@drawable/close"
+            android:text="Отказать"
+            android:backgroundTint="@android:color/holo_red_dark"/>
+    </LinearLayout>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"

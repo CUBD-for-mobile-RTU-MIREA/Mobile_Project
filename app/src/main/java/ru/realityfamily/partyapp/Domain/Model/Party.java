@@ -22,6 +22,7 @@ public class Party {
     private int maxPeopleCount;
     private List<Person> peopleList;
     private List<String> images;
+    private boolean verified;
 
     public Party() {
         id = UUID.randomUUID().toString();
@@ -107,5 +108,13 @@ public class Party {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
     }
 }

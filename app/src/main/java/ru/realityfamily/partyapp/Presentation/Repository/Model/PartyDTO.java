@@ -54,12 +54,16 @@ public class PartyDTO extends Party {
 
     public void setStartTimeDTO(String startTimeDTO) {
         this.startTimeDTO = startTimeDTO;
-        super.setStartTime(LocalDateTime.parse(this.startTimeDTO, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+        if (this.startTimeDTO != null && !this.startTimeDTO.isEmpty()) {
+            super.setStartTime(LocalDateTime.parse(this.startTimeDTO, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+        }
     }
 
     public void setStopTimeDTO(String stopTimeDTO) {
         this.stopTimeDTO = stopTimeDTO;
-        super.setStopTime(LocalDateTime.parse(this.stopTimeDTO, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+        if (this.stopTimeDTO != null && !this.stopTimeDTO.isEmpty()) {
+            super.setStopTime(LocalDateTime.parse(this.stopTimeDTO, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+        }
     }
 
     public void setPeopleListDTO(String peopleListDTO) {
@@ -171,6 +175,7 @@ public class PartyDTO extends Party {
         dto.setStopTime(party.getStopTime());
         dto.setPeopleList(party.getPeopleList());
         dto.setImages(party.getImages());
+        dto.setVerified(party.isVerified());
 
         return dto;
     }

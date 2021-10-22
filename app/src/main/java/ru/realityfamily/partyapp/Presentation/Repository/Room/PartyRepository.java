@@ -21,17 +21,25 @@ import ru.realityfamily.partyapp.Presentation.Repository.Room.DAO.PersonDAO;
 public class PartyRepository implements RepositoryTasks {
     private PartyDAO mPartyDao;
     private PersonDAO mPersonDao;
-    private LiveData<List<PartyDTO>> mAllParties;
 
     public PartyRepository(Application application) {
         PartyRoomDatabase db = PartyRoomDatabase.getDatabase(application);
         mPartyDao = db.partyDao();
         mPersonDao = db.personDAO();
-        mAllParties = mPartyDao.getAllParties();
     }
 
     public LiveData<List<PartyDTO>> getAllParties() {
-        return mAllParties;
+        return mPartyDao.getAllParties();
+    }
+
+    @Override
+    public LiveData<List<PartyDTO>> getVerifiedParties() {
+        return mPartyDao.getVerifiedParties();
+    }
+
+    @Override
+    public LiveData<List<PartyDTO>> getNotVerifiedParties() {
+        return mPartyDao.getNotVerifiedParties();
     }
 
     @Override
@@ -49,6 +57,15 @@ public class PartyRepository implements RepositoryTasks {
 
         PartyRoomDatabase.databaseWriteExecutor.execute(() -> {
             mPartyDao.deleteParty(dto);
+        });
+    }
+
+    @Override
+    public void updateParty(Party party) {
+        PartyDTO dto = PartyDTO.convertFromParty(party);
+
+        PartyRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mPartyDao.updateParty(dto);
         });
     }
 
@@ -92,7 +109,21 @@ public class PartyRepository implements RepositoryTasks {
     public LiveData<PartyDTO> findParty(String id, LifecycleOwner owner) {
         MutableLiveData<PartyDTO> specificParty = new MutableLiveData<>();
 
-        mAllParties.observe(owner, (List<PartyDTO> parties) -> {
+        mPartyDao.getAllParties().observe(owner, (List<PartyDTO> parties) -> {
+            specificParty.setValue(parties.stream()
+                    .filter(partyDTO -> id.equals(partyDTO.getId()))
+                    .findAny()
+                    .orElse(null)
+            );
+        });
+        return specificParty;
+    }
+
+    @Override
+    public LiveData<PartyDTO> findVerifiedParty(String id, LifecycleOwner owner) {
+        MutableLiveData<PartyDTO> specificParty = new MutableLiveData<>();
+
+        mPartyDao.getVerifiedParties().observe(owner, (List<PartyDTO> parties) -> {
             specificParty.setValue(parties.stream()
                     .filter(partyDTO -> id.equals(partyDTO.getId()))
                     .findAny()

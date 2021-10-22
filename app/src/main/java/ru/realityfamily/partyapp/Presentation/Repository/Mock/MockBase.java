@@ -73,6 +73,16 @@ public class MockBase implements RepositoryTasks {
         data = new MutableLiveData<>(list);
     }
 
+    @Override
+    public <T extends Party> LiveData<List<T>> getVerifiedParties() {
+        return null;
+    }
+
+    @Override
+    public <T extends Party> LiveData<List<T>> getNotVerifiedParties() {
+        return null;
+    }
+
     public void addParty(Party party) {
         list.add(party);
 
@@ -84,6 +94,16 @@ public class MockBase implements RepositoryTasks {
         list.remove(party);
 
         data.setValue(list);
+    }
+
+    @Override
+    public <T extends Party> LiveData<T> findVerifiedParty(String id, LifecycleOwner owner) {
+        return null;
+    }
+
+    @Override
+    public void updateParty(Party party) {
+
     }
 
     @Override

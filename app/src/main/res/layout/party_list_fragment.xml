@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
     android:orientation="vertical"
-    tools:context=".Presentation.View.PartyList"
-    android:background="@android:color/transparent">
+    tools:context=".Presentation.View.PartyList">
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
@@ -18,19 +17,56 @@
 
         android:backgroundTint="@color/main"
         app:fabAlignmentMode="center"
-        app:hideOnScroll="true"/>
+        app:hideOnScroll="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp">
+
+            <ImageButton
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                android:src="@drawable/search" />
+        </LinearLayout>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fab"
+        android:background="@color/secondary"
         android:src="@drawable/add"
-        app:layout_anchor="@id/bottom_app_bar"
-        android:background="@color/secondary"/>
+        app:layout_anchor="@id/bottom_app_bar" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/partyListRecycler"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="@dimen/normalMargin"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <SearchView
+                android:id="@+id/searchTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/partyListRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/normalMargin" />
+        </LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
